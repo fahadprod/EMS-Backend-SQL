@@ -13,6 +13,7 @@ const degreeName = 'Employee degree'
 const workExp = 'Employee work experience '
 
 const Employee = {
+  details: 'Employee Details',
   notEmployee: 'Employee' + notFound,
   firstName: 'First name is required.',
   lastName: 'Last name is required.',

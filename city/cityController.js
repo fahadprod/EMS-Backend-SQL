@@ -25,7 +25,7 @@ exports.getCities = async (req, res) => {
     if (cities.length === 0) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, cities)
+      response.retrieved(res, cities,validation.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)
@@ -43,7 +43,32 @@ exports.getCity = async (req, res) => {
     if (city === null) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, city)
+      response.retrieved(res, city,validation.details)
+    }
+  } catch (err) {
+    response.badRequest(res, err.message)
+  }
+}
+// add degree
+exports.addCity = async (req, res) => {
+  try {
+    const countryId = req.body.countryId
+    const city = !isEmpty(req.body.city) ? req.body.city : ''
+    if (isEmpty(countryId)) {
+      response.badRequest(res, validation.countryId)
+    } if (Validator.isEmpty(city)) {
+      response.badRequest(res, validation.name)
+    } else {
+      const cityInfo = {
+        countryId: countryId,
+        city: city
+      }
+      const created = await cityDAL.addCity(cityInfo)
+      if (created) {
+        response.created(res, validation.created)
+      } else {
+        response.internalServerError(res, validation.notCreated)
+      }
     }
   } catch (err) {
     response.badRequest(res, err.message)

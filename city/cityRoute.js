@@ -12,7 +12,7 @@ const requireAdmin = require('../middleware/checkForAdmin')
 */
 router.route('/city/getCities').get(verifyToken, cityController.getCities)
 router.route('/city/getCity/:id').get(verifyToken, cityController.getCity)
-
+router.route('/city/addCity').post(verifyToken,requireAdmin, cityController.addCity)
 router.route('/city/deleteCity/:id').delete(verifyToken, requireAdmin, cityController.deleteCity)
 router.route('/city/updateCity/:id').patch(verifyToken, requireAdmin, cityController.updateCity)
 

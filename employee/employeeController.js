@@ -44,7 +44,7 @@ exports.getEmployees = async (req, res) => {
     if (employees.length === 0) {
       response.notFound(res, validation.Employee.notEmployee)
     } else {
-      response.retrieved(res, employees)
+      response.retrieved(res, employees, validation.Employee.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)
@@ -62,13 +62,30 @@ exports.getEmpBasicInfo = async (req, res) => {
     if (employees.length === 0) {
       response.notFound(res, validation.Employee.notEmployee)
     } else {
-      response.retrieved(res, employees)
+      response.retrieved(res, employees,validation.Employee.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)
   }
 }
 
+// get employees basic info controller
+exports.getEmployeeByName = async (req, res) => {
+  try {
+    // const page = parseInt(req.query.page)
+    // const pageSize = parseInt(req.query.pageSize)
+    // const offset = page * pageSize
+    // const limit = pageSize
+    const employees = await employeeDAL.getEmployeeByName(req.body.character)
+    if (employees.length === 0) {
+      response.notFound(res, validation.Employee.notEmployee)
+    } else {
+      response.retrieved(res, employees, validation.Employee.details)
+    }
+  } catch (err) {
+    response.badRequest(res, err.message)
+  }
+}
 // get employee (based on employeeId) controller
 exports.getEmployee = async (req, res) => {
   try {
@@ -78,7 +95,7 @@ exports.getEmployee = async (req, res) => {
     }
     const employee = await employeeDAL.getEmployee(employeeId)
     if (employee) {
-      response.retrieved(res, employee)
+      response.retrieved(res, employee, validation.Employee.details)
     } else {
       response.notFound(res, validation.Employee.notEmployee)
     }
@@ -93,7 +110,7 @@ exports.getEmployeeCount = async (req, res) => {
     if (employees.length === 0) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, employees)
+      response.retrieved(res, employees, validation.Employee.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)
@@ -227,11 +244,10 @@ exports.updateLoginCredentials = async (req, res) => {
         } else {
           response.badRequest(res, validation.Password.currentPassword)
         }
-      } else if (req.isAdmin) {
+      }
+      if (req.isAdmin) {
         credentials['empId'] = req.params.id
         credentials['email'] = req.body.email
-      } else {
-        response.unauthorized(res, validation.Employee.unauthorize)
       }
       const updated = await employeeDAL.updateLoginCredentials(credentials)
       if (updated) {

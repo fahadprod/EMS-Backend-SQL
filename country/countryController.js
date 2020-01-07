@@ -22,7 +22,7 @@ exports.getCountries = async (req, res) => {
     if (countries.length === 0) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, countries)
+      response.retrieved(res, countries,validation.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)
@@ -35,7 +35,7 @@ exports.getCities = async (req, res) => {
     if (cities.length === 0) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, cities)
+      response.retrieved(res, cities,validation.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)
@@ -49,7 +49,7 @@ exports.getCountry = async (req, res) => {
     if (country === null) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, country)
+      response.retrieved(res, country,validation.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)

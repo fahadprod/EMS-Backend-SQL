@@ -25,7 +25,7 @@ exports.getDesignations = async (req, res) => {
     if (designations.length === 0) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, designations)
+      response.retrieved(res, designations, validation.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)
@@ -43,7 +43,7 @@ exports.getDesignation = async (req, res) => {
     if (designation === null) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, designation)
+      response.retrieved(res, designation, validation.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)

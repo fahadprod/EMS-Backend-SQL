@@ -7,6 +7,7 @@ const notFound = ' Gender not found.'
 const notCreated = ' Gender could not be created.'
 const notDeleted = ' Gender could not be deleted.'
 const notUpdated = ' Gender could not be updated.'
+const details = 'Gender Details'
 module.exports = {
   id,
   type,
@@ -16,5 +17,6 @@ module.exports = {
   notCreated,
   notDeleted,
   notUpdated,
-  notFound
+  notFound,
+  details
 }

@@ -24,7 +24,7 @@ exports.getSkills = async (req, res) => {
     if (skills.length === 0) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, skills)
+      response.retrieved(res, skills, validation.details)
     }
   } catch (err) {
     response.badRequest(res)
@@ -42,7 +42,7 @@ exports.getSkill = async (req, res) => {
     if (skill === null) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, skill)
+      response.retrieved(res, skill, validation.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)

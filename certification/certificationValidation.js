@@ -7,7 +7,7 @@ const notFound = ' Certificate not found.'
 const notCreated = 'Certificate could not be created.'
 const notDeleted = 'Certificate could not be deleted.'
 const notUpdated = 'Certificate could not be updated'
-
+const details = 'Certificate Details'
 module.exports = {
   id,
   name,
@@ -17,5 +17,6 @@ module.exports = {
   notCreated,
   notDeleted,
   notUpdated,
-  notFound
+  notFound,
+  details
 }

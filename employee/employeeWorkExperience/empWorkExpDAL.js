@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
 const models = require('../../database/models')
-// const model = models.empWorkExperience
+// const model = models.country
 // for (const assoc of Object.keys(model.associations)) {
 //   for (const accessor of Object.keys(model.associations[assoc].accessors)) {
 //     console.log(model.name + '.' + model.associations[assoc].accessors[accessor] + '()')
@@ -37,6 +37,7 @@ exports.updateEmpWorkExp = async (data) => {
     })
     success = true
   }
+  console.log(false)
   return success
 }
 exports.deleteEmpWorkExp = async (data) => {

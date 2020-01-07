@@ -22,7 +22,7 @@ exports.getLevels = async (req, res) => {
     if (levels.length === 0) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, levels)
+      response.retrieved(res, levels, validation.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)
@@ -37,7 +37,7 @@ exports.getLevel = async (req, res) => {
     if (!level) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, level)
+      response.retrieved(res, level, validation.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)

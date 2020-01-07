@@ -5,7 +5,7 @@ const models = require('../database/models')
 
 const getCities = async () => {
   const cityFound = await models.city.findAll({
-    attributes: ['id', 'city']
+    attributes: ['id', 'city','countryId']
   })
   return cityFound
 }
@@ -15,6 +15,21 @@ const getCity = async (cityId) => {
   return city
 }
 
+const addCity = async (data) => {
+  var created = false
+  var country = await models.country.findOne({ where: { id: data.countryId } })
+  var city = await models.city.findOne({ where: { city: data.city } })
+  if (country) {
+    if (!city) {
+      await models.city.create({
+        city: data.city,
+        countryId: data.countryId
+      })
+      created = true
+    }
+  }
+  return created
+}
 const deleteCity = async (cityId) => {
   var deleted = false
   const city = await getCity(cityId)
@@ -35,5 +50,5 @@ const updateCity = async (data) => {
   return updated
 }
 module.exports = {
-  getCity, getCities, deleteCity, updateCity
+  getCity, addCity, getCities, deleteCity, updateCity
 }

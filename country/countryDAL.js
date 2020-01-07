@@ -33,10 +33,10 @@ const getCountry = async (coutnryId) => {
     include: [
       {
         model: models.city,
-        attributes: ['id', 'city']
+        attributes: ['id', 'city', 'countryId']
       }
     ],
-    attributes: ['id', 'country']
+    // attributes: ['id', 'country']
   })
   return country
 }
@@ -80,14 +80,32 @@ const updateCountry = async (data) => {
       updated = true
     }
     var i
-    for (i = 0; i < data.cities.length; i++) {
-      const city = await models.city.findByPk(data.cities[i].id)
-      if (city && (city.city !== data.cities[i].city)) {
-        await city.update({ city: data.cities[i].city }, { where: { id: data.cities[i].id } })
+    var j
+    var exist = false
+    for (i = 0; i < country.cities.length; i++) {
+      for (j = 0; j < data.cities.length; j++) {
+        if(country.cities[i].id == data.cities[j].id) {
+          exist = true
+          break
+        }
       }
+    if (exist) {
+      if ((country.cities[i].city !== data.cities[j].city)) {
+        await country.cities[i].update({ city: data.cities[j].city }, {
+          where: { id: data.cities[j].id }
+        })
+      }
+    } else {
+      var city = await models.city.findOne({ 
+        where: { id: country.cities[i].id}
+      })
+      await city.destroy()
     }
+    exist = false
+  }
     updated = true
   }
+   
   return updated
 }
 module.exports = {

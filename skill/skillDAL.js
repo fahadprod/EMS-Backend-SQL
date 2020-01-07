@@ -10,8 +10,8 @@ const getSkills = async () => {
 }
 
 const getSkill = async (skillId) => {
-  const skill = await models.skill.findByPk({
-    skillId,
+  const skill = await models.skill.findOne({
+    where:{id: skillId},
     attributes: ['id', 'skill']
   })
   return skill
@@ -41,6 +41,7 @@ const deleteSkill = async (skillId) => {
 
 const updateSkill = async (data) => {
   var updated = false
+  
   const skill = await models.skill.findByPk(data.skillId)
   if (skill != null) {
     await skill.update({ skill: data.skillName })

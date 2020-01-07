@@ -24,7 +24,7 @@ exports.getGenders = async (req, res) => {
     if (genders.length === 0) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, genders)
+      response.retrieved(res, genders,validation.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)
@@ -40,7 +40,7 @@ exports.getGender = async (req, res) => {
     }
     const gender = await genderDAL.getGender(genderId)
     if (gender) {
-      response.retrieved(res, gender)
+      response.retrieved(res, gender,validation.details)
     } else {
       response.notFound(res, validation.notFound)
     }

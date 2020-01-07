@@ -2,6 +2,8 @@
 const models = require('../database/models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 // function to find email
 const findEmail = async (email) => {
   const found = await models.employeeLogin.findOne({ where: { email: email } }, { raw: true })
@@ -90,6 +92,7 @@ exports.getEmployees = async (offset, limit) => {
   })
   return employees
 }
+
 exports.getEmployee = async (employeeId) => {
   const employee = await models.employee.findByPk(employeeId, {
 
@@ -164,7 +167,26 @@ exports.getEmpBasicInfo = async () => {
         attributes: ['id', 'designation']
       }
     ],
-    attributes: ['id', 'firstName', 'lastName', 'description', 'image', 'contactNumber']
+    attributes: ['id', 'firstName', 'lastName', 'description', 'contactNumber']
+  })
+  return employees
+}
+exports.getEmployeeByName = async (character) => {
+  const employees = await models.employee.findAll({
+    where: Sequelize.where(Sequelize.fn('concat', Sequelize.col('firstName'),' ', Sequelize.col('lastName')), {
+      [Op.like]: '%'+ character + '%'
+    }),
+    include: [
+      {
+        model: models.gender,
+        attributes: ['id', 'gender']
+      },
+      {
+        model: models.designation,
+        attributes: ['id', 'designation']
+      }
+    ],
+    attributes: ['id', 'firstName', 'lastName', 'description', 'contactNumber']
   })
   return employees
 }
@@ -266,7 +288,7 @@ exports.logout = async (token) => {
   }
   return success
 }
-exports.updateLoginCredentials = async (data) => {
+exports.updateLoginCredentials = async (data,req,res) => {
   var changed = false
   const emp = await models.employeeLogin.findOne({ where: { employeeId: data.empId } })
   if (emp) {

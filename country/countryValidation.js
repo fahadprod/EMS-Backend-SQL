@@ -7,6 +7,7 @@ const notFound = ' Country not found.'
 const notCreated = ' Country(along with cities) could not be created.'
 const notDeleted = ' Country could not be deleted.'
 const notUpdated = ' Country could not be updated'
+const details = 'Country Details'
 module.exports = {
   id,
   countryName,
@@ -16,5 +17,6 @@ module.exports = {
   notCreated,
   notDeleted,
   notUpdated,
-  notFound
+  notFound,
+  details
 }

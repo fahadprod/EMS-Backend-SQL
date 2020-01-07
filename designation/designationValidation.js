@@ -7,6 +7,7 @@ const notFound = ' Designation not found.'
 const notCreated = ' Designation could not be created.'
 const notDeleted = ' Designation could not be deleted.'
 const notUpdated = ' Designation could not be updated.'
+const details = 'Designation Details'
 module.exports = {
   id,
   designation,
@@ -16,5 +17,6 @@ module.exports = {
   notCreated,
   notDeleted,
   notUpdated,
-  notFound
+  notFound,
+  details
 }

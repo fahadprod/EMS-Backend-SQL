@@ -22,7 +22,7 @@ exports.getDegrees = async (req, res) => {
     if (degrees.length === 0) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, degrees)
+      response.retrieved(res, degrees,validation.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)
@@ -38,7 +38,7 @@ exports.getDegree = async (req, res) => {
     }
     const degree = await degreeDAL.getDegree(degreeId)
     if (degree) {
-      response.retrieved(res, degree)
+      response.retrieved(res, degree,validation.details)
     } else {
       response.notFound(res, validation.notFound)
     }

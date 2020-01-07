@@ -8,6 +8,7 @@ const notFound = ' Degree Level not found.'
 const notCreated = ' Degree Level (along with degrees) could not be created.'
 const notDeleted = ' Degree Level could not be deleted.'
 const notUpdated = ' Degree Level could not be updated.'
+const details = 'Degree Level Details'
 module.exports = {
   id,
   degreeLevel,
@@ -18,5 +19,6 @@ module.exports = {
   notCreated,
   notDeleted,
   notUpdated,
-  notFound
+  notFound,
+  details
 }

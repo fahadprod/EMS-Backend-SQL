@@ -25,7 +25,7 @@ exports.getCertificates = async (req, res) => {
     if (certificates.length === 0) {
       response.notFound(res, validation.notFound)
     } else {
-      response.retrieved(res, certificates)
+      response.retrieved(res, certificates,validation.details)
     }
   } catch (err) {
     response.badRequest(res, err.message)
@@ -40,7 +40,7 @@ exports.getCertificate = async (req, res) => {
     } else {
       const certificate = await certificationDAL.getCertificate(certificateId)
       if (certificate) {
-        response.retrieved(res, certificate)
+        response.retrieved(res, certificate,validation.details)
       } else {
         response.notFound(res, validation.notFound)
       }

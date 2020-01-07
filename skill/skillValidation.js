@@ -7,7 +7,7 @@ const notFound = ' Skill not found.'
 const notCreated = ' Skill could not be created.'
 const notDeleted = ' Skill could not be deleted.'
 const notUpdated = ' Skill could not be updated.'
-
+const details = ' Skill Details'
 module.exports = {
   id,
   name,
@@ -17,5 +17,6 @@ module.exports = {
   notCreated,
   notDeleted,
   notUpdated,
-  notFound
+  notFound,
+  details
 }
